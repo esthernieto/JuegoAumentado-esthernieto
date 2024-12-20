@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhr8gymq84geg"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_4xegv"]
+[ext_resource type="Texture2D" uid="uid://b6ko3xju5j66b" path="res://assets/sprites/arc_projectile_sprite.png" id="2_ylsbn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n44tv"]
+atlas = ExtResource("2_ylsbn")
+region = Rect2(0, 0, 7, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1cge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n44tv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gd6bm"]
+radius = 4.12311
+
+[node name="bullet" type="Area2D"]
+script = ExtResource("1_4xegv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6, -2)
+scale = Vector2(1.14286, 1.14286)
+sprite_frames = SubResource("SpriteFrames_h1cge")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -2)
+shape = SubResource("CircleShape2D_gd6bm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
